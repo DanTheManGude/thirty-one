@@ -6,9 +6,11 @@ import { User } from "firebase/auth";
 import { child, getDatabase, push, ref, update } from "firebase/database";
 import { useState } from "react";
 import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
+import { gamePathRoot } from "@/constants";
+import { getFullGamePath } from "@/utils";
+import { Game } from "@/type";
 
-const gamePath = "games";
-const gameTemplate = { players: ["Danny G"] };
+const gameTemplate: Game = { players: ["Danny G"], status: "WAITING" };
 
 function NewGameControls({ user }: { user?: User }) {
   const [gameId, setGameId] = useState<string | null>(null);
@@ -18,10 +20,14 @@ function NewGameControls({ user }: { user?: User }) {
   }
 
   const handleCreateGame = async () => {
-    const key = push(child(ref(getDatabase()), gamePath)).key;
+    const key = push(child(ref(getDatabase()), gamePathRoot)).key;
+
+    if (!key) {
+      return;
+    }
 
     await update(ref(getDatabase()), {
-      [`${gamePath}/${key}`]: gameTemplate,
+      [getFullGamePath(key)]: gameTemplate,
     });
 
     setGameId(key);
