@@ -58,8 +58,18 @@ export default function Play() {
   }, [gameId]);
 
   const joinGame = (name: string) => {
-    console.log(name);
-    setPlayerName(name);
+    try {
+      fetch(`/api/add-player`, {
+        method: "POST",
+        body: JSON.stringify({ name }),
+      }).then((response) => {
+        if (response.ok) {
+          setPlayerName(name);
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   if (!game) {
