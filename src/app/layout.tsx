@@ -1,7 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+
+import { ThemeProvider } from "@mui/material/styles";
+
 import "./globals.css";
 import { AuthContextProvider } from "@/context/AuthContext";
+import theme from "./theme";
+import Box from "@mui/material/Box";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,7 +32,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <AuthContextProvider>{children}</AuthContextProvider>
+        <ThemeProvider theme={theme}>
+          <AuthContextProvider>
+            <Box display="flex" justifyContent="center">
+              {children}
+            </Box>
+          </AuthContextProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

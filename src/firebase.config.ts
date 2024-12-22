@@ -1,7 +1,6 @@
 "use client";
 
 import { initializeApp } from "firebase/app";
-
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
@@ -12,17 +11,7 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const app = initializeApp(firebaseConfig);
-
-if (typeof window !== "undefined") {
-  import("firebase/app-check").then((firebaseAppCheck) => {
-    firebaseAppCheck.initializeAppCheck(app, {
-      provider: new firebaseAppCheck.ReCaptchaEnterpriseProvider(
-        process.env.NEXT_PUBLIC_CAPTCHA_SITE_KEY || ""
-      ),
-      isTokenAutoRefreshEnabled: true,
-    });
-  });
-}
 
 export const auth = getAuth();
