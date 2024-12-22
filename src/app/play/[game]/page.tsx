@@ -11,7 +11,7 @@ function WaitingControls({
   players,
   joinGame,
 }: {
-  players: string[];
+  players: Game["players"];
   joinGame: (name: string) => void;
 }) {
   const [playerName, setPlayerName] = useState("");
@@ -28,13 +28,13 @@ function WaitingControls({
       <Button
         variant="outlined"
         onClick={() => joinGame(playerName)}
-        disabled={!playerName || players.includes(playerName)}
+        disabled={!playerName || Object.values(players).includes(playerName)}
       >
         Join game
       </Button>
 
       <Typography>Players:</Typography>
-      {players.map((player) => (
+      {Object.values(players).map((player) => (
         <Typography key={player}>{player}</Typography>
       ))}
     </>
@@ -45,7 +45,7 @@ export default function Play() {
   const { game: gameId } = useParams<{ game: string }>();
 
   const [game, setGame] = useState<Game | null>(null);
-  const [playerName, setPlayerName] = useState("");
+  const [playerKey, setPlayerKey] = useState("");
 
   useEffect(() => {
     onValue(ref(getDatabase(), getFullGamePath(gameId)), (snapshot) => {
@@ -61,10 +61,10 @@ export default function Play() {
     try {
       fetch(`/api/add-player`, {
         method: "POST",
-        body: JSON.stringify({ name }),
-      }).then((response) => {
+        body: JSON.stringify({ name, gameId }),
+      }).then(async (response) => {
         if (response.ok) {
-          setPlayerName(name);
+          setPlayerKey(await response.json().then((data) => data.playerKey));
         }
       });
     } catch (error) {
@@ -80,7 +80,7 @@ export default function Play() {
     return <WaitingControls players={game.players} joinGame={joinGame} />;
   }
 
-  console.log(playerName);
+  console.log(playerKey);
 
   return (
     <>

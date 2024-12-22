@@ -10,7 +10,7 @@ import { gamePathRoot } from "@/constants";
 import { getFullGamePath } from "@/utils";
 import { Game } from "@/type";
 
-const gameTemplate: Game = { players: ["Danny G"], status: "WAITING" };
+const gameTemplate: Game = { players: { "1": "Danny G" }, status: "WAITING" };
 
 function NewGameControls({ user }: { user?: User }) {
   const [gameId, setGameId] = useState<string | null>(null);

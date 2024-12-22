@@ -1,10 +1,21 @@
+import admin from "firebase-admin";
+
+const adminConfig: any = {};
+
 import { NextResponse, NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
-  const json: { name: string } = await request.json();
-  const name = json.name;
+  const json: { name: string; gameId: string } = await request.json();
+  const { gameId, name } = json;
 
-  console.log(`Adding player ${name}`);
+  if (!admin.apps.length) {
+    admin.initializeApp({
+      credential: admin.credential.cert(adminConfig),
+      databaseURL: "https://thirty-one-game-default-rtdb.firebaseio.com",
+    });
+  }
 
-  return NextResponse.json(null, { status: 202 });
+  const key = admin.database().ref(`games/${gameId}/players`).push(name).key;
+
+  return NextResponse.json({ playerKey: key }, { status: 202 });
 }

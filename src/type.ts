@@ -1,4 +1,4 @@
 export type Game = {
-  players: string[];
+  players: { [key: string]: string };
   status: "WAITING" | "PLAYING" | "FINISHED";
 };
