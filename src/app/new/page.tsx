@@ -5,6 +5,7 @@ import { Button, Stack, Typography } from "@mui/material";
 import { User } from "firebase/auth";
 import { child, getDatabase, push, ref, update } from "firebase/database";
 import { useState } from "react";
+import ContentCopyRoundedIcon from "@mui/icons-material/ContentCopyRounded";
 
 const gamePath = "games";
 const gameTemplate = { players: ["Danny G"] };
@@ -27,15 +28,33 @@ function NewGameControls({ user }: { user?: User }) {
   };
 
   return (
-    <Stack>
+    <Stack spacing={2}>
       <Typography textAlign={"center"}>New Game</Typography>
-      <Button onClick={handleCreateGame} disabled={Boolean(gameId)}>
+      <Button
+        onClick={handleCreateGame}
+        disabled={Boolean(gameId)}
+        variant="outlined"
+      >
         <Typography>Create</Typography>
       </Button>
-      <Button disabled={!gameId}>
+      <Button disabled={!gameId} variant="outlined">
         <Typography textAlign={"center"}>Start game</Typography>
       </Button>
-      <Typography>{gameId}</Typography>
+      {gameId && <Typography>{gameId}</Typography>}
+      {gameId && (
+        <Button
+          color="primary"
+          variant="contained"
+          endIcon={<ContentCopyRoundedIcon />}
+          onClick={() => {
+            navigator.clipboard.writeText(
+              `https://31.dangude.com/play/${gameId}`
+            );
+          }}
+        >
+          <Typography>Copy</Typography>
+        </Button>
+      )}
     </Stack>
   );
 }
@@ -46,9 +65,11 @@ export default function Page() {
 
   return (
     <>
-      <Stack alignItems={"center"}>
+      <Stack alignItems={"center"} spacing={2}>
         <Typography>31 Game</Typography>
         <Button
+          variant="outlined"
+          color="secondary"
           onClick={(e) => {
             e.preventDefault();
             try {
