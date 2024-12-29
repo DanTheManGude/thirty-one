@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import { ThemeProvider } from "@mui/material/styles";
+import Box from "@mui/material/Box";
 
 import "./globals.css";
-import { AuthContextProvider } from "@/context/AuthContext";
 import theme from "./theme";
-import Box from "@mui/material/Box";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -20,8 +19,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Online 31 Game",
-  description: "Play 31 game online",
+  title: "31 Game Strategy",
+  description: "Provide strategy for 31 game in real time",
 };
 
 export default function RootLayout({
@@ -33,11 +32,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ThemeProvider theme={theme}>
-          <AuthContextProvider>
-            <Box display="flex" justifyContent="center">
-              {children}
-            </Box>
-          </AuthContextProvider>
+          <Box display="flex" justifyContent="center">
+            {children}
+          </Box>
         </ThemeProvider>
       </body>
     </html>

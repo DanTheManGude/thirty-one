@@ -1,6 +1,6 @@
 {
   "name": "thirty-one",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,9 +13,7 @@
     "@emotion/styled": "^11.13.5",
     "@mui/icons-material": "^6.2.1",
     "@mui/material": "^6.1.9",
-    "firebase": "^11.0.2",
-    "firebase-admin": "^13.0.2",
-    "next": "14.0.3",
+    "next": "^14.2.22",
     "react": "^18",
     "react-dom": "^18"
   },
