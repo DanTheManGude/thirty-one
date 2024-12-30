@@ -1,7 +1,7 @@
 "use client";
 
 import { Card } from "@/constants";
-import { createContext } from "react";
+import { createContext, Dispatch, SetStateAction } from "react";
 
 export type FullData = {
   deck: Card[];
@@ -9,7 +9,7 @@ export type FullData = {
 
 export type DataContextShape = {
   data: FullData;
-  setData: (data: FullData) => void;
+  setData: Dispatch<SetStateAction<FullData>>;
 };
 
 export const startingData: FullData = {
