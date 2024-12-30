@@ -1,3 +1,5 @@
+"use client";
+
 import { Card } from "@/constants";
 import { createContext } from "react";
 

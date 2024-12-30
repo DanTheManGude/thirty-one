@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import { ThemeProvider } from "@mui/material/styles";
@@ -19,11 +18,6 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
-
-export const metadata: Metadata = {
-  title: "31 Game Strategy",
-  description: "Provide strategy for 31 game in real time",
-};
 
 export default function RootLayout({
   children,

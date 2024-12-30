@@ -1,3 +1,5 @@
+"use client";
+
 import { Typography } from "@mui/material";
 import { useContext } from "react";
 import { DataContext } from "./DataContext";
