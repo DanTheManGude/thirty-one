@@ -3,7 +3,7 @@ import { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "31 Game Strategy",
-    short_name: "31 Statagy",
+    short_name: "31 Strategy",
     description: "Provide strategy for 31 game in real time",
     start_url: "/",
     lang: "en",
